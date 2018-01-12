@@ -13,8 +13,8 @@
     "react-native": "*"
   },
   "dependencies": {
-    "babel-jest": "^21.2.0",
-    "jest": "^21.2.1",
+    "babel-jest": "^22.0.6",
+    "jest": "^22.0.6",
     "json5": "^0.5.1",
     "react-test-renderer": "16.0.0"
   },
