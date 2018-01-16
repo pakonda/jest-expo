@@ -41,9 +41,6 @@ const expoModuleCustomMocks = {
     downloadAsync: jest.fn(() => Promise.resolve({ md5: 'md5', uri: 'uri' })),
     getInfoAsync: jest.fn(() => Promise.resolve({ exists: true, md5: 'md5', uri: 'uri' })),
   },
-  ExponentFontLoader: {
-    loadAsync: jest.fn(() => Promise.resolve()),
-  },
 };
 
 for (let moduleName of Object.keys(expoModules)) {
@@ -54,11 +51,13 @@ for (let moduleName of Object.keys(expoModules)) {
     const property = moduleProperties[propertyName];
     const propertyType = property.type;
     const customMock =
-      (expoModuleCustomMocks[moduleName] && expoModuleCustomMocks[moduleName][propertyName]) ||
-      property.mock;
+      expoModuleCustomMocks[moduleName] &&
+      expoModuleCustomMocks[moduleName].hasOwnProperty(propertyName)
+        ? expoModuleCustomMocks[moduleName][propertyName]
+        : property.mock;
 
     let mockValue;
-    if (customMock) {
+    if (customMock !== undefined) {
       mockValue = customMock;
     } else if (propertyType === 'function') {
       if (property.functionType === 'promise') {

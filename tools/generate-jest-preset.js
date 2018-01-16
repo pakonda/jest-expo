@@ -21,9 +21,17 @@ function generateJestPreset() {
   if (!expoJestPreset.moduleNameMapper) {
     expoJestPreset.moduleNameMapper = {};
   }
+  expoJestPreset.moduleNameMapper['^react$'] = '<rootDir>/node_modules/react';
+  expoJestPreset.moduleNameMapper['^react-native$'] = '<rootDir>/node_modules/react-native';
+  expoJestPreset.moduleNameMapper['^react-native/(.*)$'] = '<rootDir>/node_modules/react-native/$1';
+
+  if (!expoJestPreset.transform) {
+    expoJestPreset.transform = {};
+  }
   const assetNamePattern =
     '^[./a-zA-Z0-9$_-]+\\.(ttf|otf|m4v|mov|mp4|mpeg|mpg|webm|aac|aiff|caf|m4a|mp3|wav|html|pdf|obj)$';
-  expoJestPreset.moduleNameMapper[assetNamePattern] = 'RelativeImageStub';
+  expoJestPreset.transform[assetNamePattern] =
+    '<rootDir>/node_modules/react-native/jest/assetFileTransformer.js';
 
   assert(Array.isArray(expoJestPreset.transformIgnorePatterns));
   assert.deepEqual(expoJestPreset.transformIgnorePatterns, [
