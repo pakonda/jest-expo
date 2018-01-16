@@ -88,6 +88,8 @@ for (let moduleName of Object.keys(expoModules)) {
 jest.mock('react-native/Libraries/Image/AssetRegistry', () => ({
   registerAsset: jest.fn(() => 1),
   getAssetByID: jest.fn(() => ({
+    fileSystemLocation: '/full/path/to/directory',
+    httpServerLocation: '/assets/full/path/to/directory',
     scales: [1],
     fileHashes: ['md5'],
     name: 'name',
