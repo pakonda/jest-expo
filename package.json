@@ -5,6 +5,10 @@
   "scripts": {
     "generate": "tools/generate-jest-preset.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/expo/jest-expo.git"
+  },
   "files": [
     "src",
     "jest-preset.json"
