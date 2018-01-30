@@ -11,7 +11,10 @@
     ]
   },
   "moduleNameMapper": {
-    "^React$": "<rootDir>/node_modules/react"
+    "^React$": "<rootDir>/node_modules/react",
+    "^react$": "<rootDir>/node_modules/react",
+    "^react-native$": "<rootDir>/node_modules/react-native",
+    "^react-native/(.*)$": "<rootDir>/node_modules/react-native/$1"
   },
   "modulePathIgnorePatterns": [
     "<rootDir>/node_modules/react-native/Libraries/react-native/"

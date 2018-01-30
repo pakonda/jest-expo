@@ -28,10 +28,15 @@ function generateJestPreset() {
   if (!expoJestPreset.transform) {
     expoJestPreset.transform = {};
   }
+
+  const defaultAssetNamePattern = "^[./a-zA-Z0-9$_-]+\\.(bmp|gif|jpg|jpeg|mp4|png|psd|svg|webp)$";
+  assert(expoJestPreset.transform.hasOwnProperty(defaultAssetNamePattern));
+  delete expoJestPreset.transform[defaultAssetNamePattern];
+
   const assetNamePattern =
-    '^[./a-zA-Z0-9$_-]+\\.(ttf|otf|m4v|mov|mp4|mpeg|mpg|webm|aac|aiff|caf|m4a|mp3|wav|html|pdf|obj)$';
+    '^.+\\.(bmp|gif|jpg|jpeg|mp4|png|psd|svg|webp|ttf|otf|m4v|mov|mp4|mpeg|mpg|webm|aac|aiff|caf|m4a|mp3|wav|html|pdf|obj)$'
   expoJestPreset.transform[assetNamePattern] =
-    '<rootDir>/node_modules/react-native/jest/assetFileTransformer.js';
+    '<rootDir>/node_modules/jest-expo/src/assetFileTransformer.js';
 
   assert(Array.isArray(expoJestPreset.transformIgnorePatterns));
   assert.deepEqual(expoJestPreset.transformIgnorePatterns, [
