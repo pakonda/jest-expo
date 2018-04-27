@@ -15,7 +15,8 @@ module.exports = function createMockConstants() {
 
   const mockDeveloper = '@test';
   const mockSlug = expoConfig.slug || 'test';
-  const mockLinkingUri = `exp://${mockDeveloper}/${mockSlug}/+`;
+  const mockLinkingUri = `exp://exp.host/${mockDeveloper}/${mockSlug}/--/`;
+  const mockHostUri = `exp.host/${mockDeveloper}/${mockSlug}`;
 
   return {
     deviceId: 'a01650bb-918d-40be-87be-cf376ab6189f',
@@ -24,6 +25,7 @@ module.exports = function createMockConstants() {
     manifest: {
       slug: mockSlug,
       extra: expoConfig.extra,
+      hostUri: mockHostUri,
     },
   };
 };
