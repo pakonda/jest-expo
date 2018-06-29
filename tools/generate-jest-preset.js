@@ -22,8 +22,11 @@ function generateJestPreset() {
     expoJestPreset.moduleNameMapper = {};
   }
   expoJestPreset.moduleNameMapper['^react$'] = '<rootDir>/node_modules/react';
+  expoJestPreset.moduleNameMapper['^expo-([a-z-]+)$'] = '<rootDir>/node_modules/expo-$1';
   expoJestPreset.moduleNameMapper['^react-native$'] = '<rootDir>/node_modules/react-native';
   expoJestPreset.moduleNameMapper['^react-native/(.*)$'] = '<rootDir>/node_modules/react-native/$1';
+  expoJestPreset.moduleNameMapper['^expo-react-native-adapter$'] =
+    '<rootDir>/node_modules/expo-react-native-adapter';
 
   if (!expoJestPreset.transform) {
     expoJestPreset.transform = {};

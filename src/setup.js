@@ -32,51 +32,56 @@ Object.defineProperty(mockNativeModules, 'ImageLoader', mockImageLoader);
 Object.defineProperty(mockNativeModules, 'ImageViewManager', mockImageLoader);
 
 const expoModules = require('./expoModules');
-const expoModuleCustomMocks = {
-  ExponentCameraManager: {
-    FaceDetection: { Landmarks: {}, Classifications: {}, Mode: {} },
-  },
-  ExponentConstants: createMockConstants(),
-  ExponentFileSystem: {
-    downloadAsync: jest.fn(() => Promise.resolve({ md5: 'md5', uri: 'uri' })),
-    getInfoAsync: jest.fn(() => Promise.resolve({ exists: true, md5: 'md5', uri: 'uri' })),
-  },
-};
+
+function mock(property, customMock) {
+  const propertyType = property.type;
+  let mockValue;
+  if (customMock !== undefined) {
+    mockValue = customMock;
+  } else if (propertyType === 'function') {
+    if (property.functionType === 'promise') {
+      mockValue = jest.fn(() => Promise.resolve());
+    } else {
+      mockValue = jest.fn();
+    }
+  } else if (propertyType === 'number') {
+    mockValue = 1;
+  } else if (propertyType === 'string') {
+    mockValue = 'mock';
+  } else if (propertyType === 'array') {
+    mockValue = [];
+  } else if (propertyType === 'mock') {
+    mockValue = mockByMockDefinition(property.mockDefinition);
+  } else {
+    mockValue = {};
+  }
+  return mockValue;
+}
+
+function mockProperties(moduleProperties, customMocks) {
+  const mockedProperties = {};
+  for (let propertyName of Object.keys(moduleProperties)) {
+    const property = moduleProperties[propertyName];
+    const customMock =
+      customMocks && customMocks.hasOwnProperty(propertyName)
+        ? customMocks[propertyName]
+        : property.mock;
+    mockedProperties[propertyName] = mock(property, customMock);
+  }
+  return mockedProperties;
+}
+
+function mockByMockDefinition(definition) {
+  const mock = {};
+  for (const key of Object.keys(definition)) {
+    mock[key] = mockProperties(definition[key]);
+  }
+  return mock;
+}
 
 for (let moduleName of Object.keys(expoModules)) {
   const moduleProperties = expoModules[moduleName];
-  const mockedProperties = {};
-
-  for (let propertyName of Object.keys(moduleProperties)) {
-    const property = moduleProperties[propertyName];
-    const propertyType = property.type;
-    const customMock =
-      expoModuleCustomMocks[moduleName] &&
-      expoModuleCustomMocks[moduleName].hasOwnProperty(propertyName)
-        ? expoModuleCustomMocks[moduleName][propertyName]
-        : property.mock;
-
-    let mockValue;
-    if (customMock !== undefined) {
-      mockValue = customMock;
-    } else if (propertyType === 'function') {
-      if (property.functionType === 'promise') {
-        mockValue = jest.fn(() => Promise.resolve());
-      } else {
-        mockValue = jest.fn();
-      }
-    } else if (propertyType === 'number') {
-      mockValue = 1;
-    } else if (propertyType === 'string') {
-      mockValue = 'mock';
-    } else if (propertyType === 'array') {
-      mockValue = [];
-    } else {
-      mockValue = {};
-    }
-
-    mockedProperties[propertyName] = mockValue;
-  }
+  const mockedProperties = mockProperties(moduleProperties);
 
   Object.defineProperty(mockNativeModules, moduleName, {
     configurable: true,
@@ -84,6 +89,27 @@ for (let moduleName of Object.keys(expoModules)) {
     get: () => mockedProperties,
   });
 }
+
+mockNativeModules.ExpoNativeModuleProxy.viewManagersNames.forEach(viewManagerName => {
+  Object.defineProperty(mockNativeModules.UIManager, `ViewManagerAdapter_${viewManagerName}`, {
+    get: () => ({
+      NativeProps: {},
+      directEventTypes: [],
+    }),
+  });
+});
+
+const modulesConstants = mockNativeModules.ExpoNativeModuleProxy.modulesConstants;
+
+Object.defineProperty(mockNativeModules.ExpoNativeModuleProxy, 'modulesConstants', {
+  get: () => ({
+    ...modulesConstants,
+    ExponentConstants: {
+      ...modulesConstants.ExponentConstants,
+      ...createMockConstants(),
+    },
+  }),
+});
 
 jest.mock('react-native/Libraries/Image/AssetRegistry', () => ({
   registerAsset: jest.fn(() => 1),

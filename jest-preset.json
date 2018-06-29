@@ -13,8 +13,10 @@
   "moduleNameMapper": {
     "^React$": "<rootDir>/node_modules/react",
     "^react$": "<rootDir>/node_modules/react",
+    "^expo-([a-z-]+)$": "<rootDir>/node_modules/expo-$1",
     "^react-native$": "<rootDir>/node_modules/react-native",
-    "^react-native/(.*)$": "<rootDir>/node_modules/react-native/$1"
+    "^react-native/(.*)$": "<rootDir>/node_modules/react-native/$1",
+    "^expo-react-native-adapter$": "<rootDir>/node_modules/expo-react-native-adapter"
   },
   "modulePathIgnorePatterns": [
     "<rootDir>/node_modules/react-native/Libraries/react-native/"
