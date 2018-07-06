@@ -129,12 +129,12 @@ module.exports = {
         ExponentConstants: {
           addListener: { type: 'function' },
           appOwnership: { type: 'string' },
-          deviceId: { type: 'string' },
           deviceName: { type: 'string' },
           deviceYearClass: { type: 'number', mock: 2016 },
           expoRuntimeVersion: { type: 'string' },
           expoVersion: { type: 'string' },
           getWebViewUserAgentAsync: { type: 'function' },
+          installationId: { type: 'string' },
           isDevice: { type: 'boolean', mock: true },
           linkingUri: { type: 'string' },
           manifest: { type: 'object' },
