@@ -55,9 +55,16 @@ module.exports = {
     exportedMethods: {
       type: 'object',
       mock: {
-        ExponentPedometer: [
-          { key: 0, argumentsCount: 2, name: 'getStepCountAsync' },
-          { key: 1, argumentsCount: 0, name: 'isAvailableAsync' },
+        ExponentMagnetometer: [{ key: 0, argumentsCount: 1, name: 'setUpdateInterval' }],
+        ExponentMagnetometerUncalibrated: [
+          { key: 0, argumentsCount: 1, name: 'setUpdateInterval' },
+        ],
+        ExponentGLObjectManager: [
+          { key: 0, argumentsCount: 0, name: 'createContextAsync' },
+          { key: 1, argumentsCount: 1, name: 'destroyContextAsync' },
+          { key: 2, argumentsCount: -1, name: 'destroyObjectAsync' },
+          { key: 3, argumentsCount: 2, name: 'createCameraTextureAsync' },
+          { key: 4, argumentsCount: 2, name: 'takeSnapshotAsync' },
         ],
         ExponentConstants: [{ key: 0, argumentsCount: 0, name: 'getWebViewUserAgentAsync' }],
         ExponentFileSystem: [
@@ -75,16 +82,13 @@ module.exports = {
         ],
         ExponentAccelerometer: [{ key: 0, argumentsCount: 1, name: 'setUpdateInterval' }],
         ExponentDeviceMotion: [{ key: 0, argumentsCount: 1, name: 'setUpdateInterval' }],
-        ExponentGLObjectManager: [
-          { key: 0, argumentsCount: 0, name: 'createContextAsync' },
-          { key: 1, argumentsCount: 1, name: 'destroyContextAsync' },
-          { key: 2, argumentsCount: -1, name: 'destroyObjectAsync' },
-          { key: 3, argumentsCount: 2, name: 'createCameraTextureAsync' },
-          { key: 4, argumentsCount: 2, name: 'takeSnapshotAsync' },
+        ExpoSMS: [
+          { key: 0, argumentsCount: 0, name: 'isAvailableAsync' },
+          { key: 1, argumentsCount: 2, name: 'sendSMSAsync' },
         ],
-        ExponentMagnetometer: [{ key: 0, argumentsCount: 1, name: 'setUpdateInterval' }],
-        ExponentMagnetometerUncalibrated: [
-          { key: 0, argumentsCount: 1, name: 'setUpdateInterval' },
+        ExponentPedometer: [
+          { key: 0, argumentsCount: 2, name: 'getStepCountAsync' },
+          { key: 1, argumentsCount: 0, name: 'isAvailableAsync' },
         ],
         ExponentGLViewManager: [],
         ExponentCameraManager: [
@@ -97,6 +101,10 @@ module.exports = {
         ],
         ExpoFaceDetector: [{ key: 0, argumentsCount: 1, name: 'detectFaces' }],
         ExponentGyroscope: [{ key: 0, argumentsCount: 1, name: 'setUpdateInterval' }],
+        ExponentPermissions: [
+          { key: 0, argumentsCount: 1, name: 'getAsync' },
+          { key: 1, argumentsCount: 1, name: 'askAsync' },
+        ],
       },
     },
     modulesConstants: {
@@ -130,12 +138,12 @@ module.exports = {
           addListener: { type: 'function' },
           appOwnership: { type: 'string' },
           deviceName: { type: 'string' },
-          deviceYearClass: { type: 'number', mock: 2016 },
+          deviceYearClass: { type: 'number', mock: 2018 },
           expoRuntimeVersion: { type: 'string' },
           expoVersion: { type: 'string' },
           getWebViewUserAgentAsync: { type: 'function' },
           installationId: { type: 'string' },
-          isDevice: { type: 'boolean', mock: true },
+          isDevice: { type: 'boolean', mock: false },
           linkingUri: { type: 'string' },
           manifest: { type: 'object' },
           platform: { type: 'object' },
@@ -177,7 +185,7 @@ module.exports = {
     ARFaceTrackingConfiguration: { type: 'boolean', mock: false },
     ARKitVersion: { type: 'string' },
     AROrientationTrackingConfiguration: { type: 'boolean', mock: true },
-    ARWorldTrackingConfiguration: { type: 'boolean', mock: true },
+    ARWorldTrackingConfiguration: { type: 'boolean', mock: false },
     OrientationTrackingVideoFormats: { type: 'array' },
     WorldTrackingVideoFormats: { type: 'array' },
     addListener: { type: 'function', functionType: 'async' },
@@ -246,7 +254,6 @@ module.exports = {
     setUserId: { type: 'function', functionType: 'async' },
     setUserProperties: { type: 'function', functionType: 'async' },
   },
-  ExponentAppLoadingManager: { finishedAsync: { type: 'function', functionType: 'promise' } },
   ExponentBlurViewManager: {},
   ExponentBrightness: {
     getBrightnessAsync: { type: 'function', functionType: 'promise' },
@@ -268,7 +275,23 @@ module.exports = {
     saveEventAsync: { type: 'function', functionType: 'promise' },
     saveReminderAsync: { type: 'function', functionType: 'promise' },
   },
-  ExponentContacts: { getContactsAsync: { type: 'function', functionType: 'promise' } },
+  ExponentContacts: {
+    addContactAsync: { type: 'function', functionType: 'promise' },
+    addExistingContactToGroupAsync: { type: 'function', functionType: 'promise' },
+    addExistingGroupToContainerAsync: { type: 'function', functionType: 'promise' },
+    createGroupAsync: { type: 'function', functionType: 'promise' },
+    getContactsAsync: { type: 'function', functionType: 'promise' },
+    getContainersAsync: { type: 'function', functionType: 'promise' },
+    getDefaultContainerIdentifierAsync: { type: 'function', functionType: 'promise' },
+    getGroupsAsync: { type: 'function', functionType: 'promise' },
+    presentFormAsync: { type: 'function', functionType: 'promise' },
+    removeContactAsync: { type: 'function', functionType: 'promise' },
+    removeContactFromGroupAsync: { type: 'function', functionType: 'promise' },
+    removeGroupAsync: { type: 'function', functionType: 'promise' },
+    updateContactAsync: { type: 'function', functionType: 'promise' },
+    updateGroupNameAsync: { type: 'function', functionType: 'promise' },
+    writeContactToFileAsync: { type: 'function', functionType: 'promise' },
+  },
   ExponentDocumentPicker: { getDocumentAsync: { type: 'function', functionType: 'promise' } },
   ExponentErrorRecovery: { setRecoveryProps: { type: 'function', functionType: 'async' } },
   ExponentFacebook: {
@@ -343,17 +366,16 @@ module.exports = {
     scheduleLocalNotification: { type: 'function', functionType: 'promise' },
     setBadgeNumberAsync: { type: 'function', functionType: 'promise' },
   },
-  ExponentPermissions: {
-    askAsync: { type: 'function', functionType: 'promise' },
-    getAsync: { type: 'function', functionType: 'promise' },
-  },
   ExponentPrint: {
     Orientation: { type: 'object' },
     print: { type: 'function', functionType: 'promise' },
     printToFileAsync: { type: 'function', functionType: 'promise' },
     selectPrinter: { type: 'function', functionType: 'promise' },
   },
-  ExponentSQLite: { exec: { type: 'function', functionType: 'promise' } },
+  ExponentSQLite: {
+    close: { type: 'function', functionType: 'async' },
+    exec: { type: 'function', functionType: 'promise' },
+  },
   ExponentScopedModuleRegistry: {},
   ExponentScreenOrientation: { allow: { type: 'function', functionType: 'async' } },
   ExponentSecureStore: {
@@ -390,6 +412,10 @@ module.exports = {
     resume: { type: 'function', functionType: 'async' },
     speak: { type: 'function', functionType: 'async' },
     stop: { type: 'function', functionType: 'async' },
+  },
+  ExponentSplashScreen: {
+    hide: { type: 'function', functionType: 'async' },
+    preventAutoHide: { type: 'function', functionType: 'async' },
   },
   ExponentStoreReview: {
     isSupported: { type: 'boolean', mock: true },

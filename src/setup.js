@@ -111,6 +111,21 @@ Object.defineProperty(mockNativeModules.ExpoNativeModuleProxy, 'modulesConstants
   }),
 });
 
+jest.mock('expo-file-system', () => ({
+  FileSystem: {
+    downloadAsync: jest.fn(() => Promise.resolve({ md5: 'md5', uri: 'uri' })),
+    getInfoAsync: jest.fn(() => Promise.resolve({ exists: true, md5: 'md5', uri: 'uri' })),
+    readAsStringAsync: jest.fn(),
+    writeAsStringAsync: jest.fn(),
+    deleteAsync: jest.fn(),
+    moveAsync: jest.fn(),
+    copyAsync: jest.fn(),
+    makeDirectoryAsync: jest.fn(),
+    readDirectoryAsync: jest.fn(),
+    createDownloadResumable: jest.fn(),
+  }
+}));
+
 jest.mock('react-native/Libraries/Image/AssetRegistry', () => ({
   registerAsset: jest.fn(() => 1),
   getAssetByID: jest.fn(() => ({
