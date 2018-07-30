@@ -55,9 +55,10 @@ module.exports = {
     exportedMethods: {
       type: 'object',
       mock: {
-        ExponentMagnetometer: [{ key: 0, argumentsCount: 1, name: 'setUpdateInterval' }],
-        ExponentMagnetometerUncalibrated: [
-          { key: 0, argumentsCount: 1, name: 'setUpdateInterval' },
+        ExponentPrint: [
+          { key: 0, argumentsCount: 1, name: 'print' },
+          { key: 1, argumentsCount: 0, name: 'selectPrinter' },
+          { key: 2, argumentsCount: 1, name: 'printToFileAsync' },
         ],
         ExponentGLObjectManager: [
           { key: 0, argumentsCount: 0, name: 'createContextAsync' },
@@ -65,6 +66,10 @@ module.exports = {
           { key: 2, argumentsCount: -1, name: 'destroyObjectAsync' },
           { key: 3, argumentsCount: 2, name: 'createCameraTextureAsync' },
           { key: 4, argumentsCount: 2, name: 'takeSnapshotAsync' },
+        ],
+        ExponentPedometer: [
+          { key: 0, argumentsCount: 2, name: 'getStepCountAsync' },
+          { key: 1, argumentsCount: 0, name: 'isAvailableAsync' },
         ],
         ExponentConstants: [{ key: 0, argumentsCount: 0, name: 'getWebViewUserAgentAsync' }],
         ExponentFileSystem: [
@@ -86,10 +91,8 @@ module.exports = {
           { key: 0, argumentsCount: 0, name: 'isAvailableAsync' },
           { key: 1, argumentsCount: 2, name: 'sendSMSAsync' },
         ],
-        ExponentPedometer: [
-          { key: 0, argumentsCount: 2, name: 'getStepCountAsync' },
-          { key: 1, argumentsCount: 0, name: 'isAvailableAsync' },
-        ],
+        ExponentMagnetometer: [{ key: 0, argumentsCount: 1, name: 'setUpdateInterval' }],
+        ExpoFaceDetector: [{ key: 0, argumentsCount: 1, name: 'detectFaces' }],
         ExponentGLViewManager: [],
         ExponentCameraManager: [
           { key: 0, argumentsCount: 1, name: 'stopRecording' },
@@ -99,7 +102,9 @@ module.exports = {
           { key: 4, argumentsCount: 2, name: 'record' },
           { key: 5, argumentsCount: 1, name: 'resumePreview' },
         ],
-        ExpoFaceDetector: [{ key: 0, argumentsCount: 1, name: 'detectFaces' }],
+        ExponentMagnetometerUncalibrated: [
+          { key: 0, argumentsCount: 1, name: 'setUpdateInterval' },
+        ],
         ExponentGyroscope: [{ key: 0, argumentsCount: 1, name: 'setUpdateInterval' }],
         ExponentPermissions: [
           { key: 0, argumentsCount: 1, name: 'getAsync' },
@@ -176,6 +181,14 @@ module.exports = {
           readDirectoryAsync: { type: 'function' },
           removeListeners: { type: 'function' },
           writeAsStringAsync: { type: 'function' },
+        },
+        ExponentPrint: {
+          Orientation: { type: 'object' },
+          addListener: { type: 'function' },
+          print: { type: 'function' },
+          printToFileAsync: { type: 'function' },
+          removeListeners: { type: 'function' },
+          selectPrinter: { type: 'function' },
         },
       },
     },
@@ -365,12 +378,6 @@ module.exports = {
     presentLocalNotification: { type: 'function', functionType: 'promise' },
     scheduleLocalNotification: { type: 'function', functionType: 'promise' },
     setBadgeNumberAsync: { type: 'function', functionType: 'promise' },
-  },
-  ExponentPrint: {
-    Orientation: { type: 'object' },
-    print: { type: 'function', functionType: 'promise' },
-    printToFileAsync: { type: 'function', functionType: 'promise' },
-    selectPrinter: { type: 'function', functionType: 'promise' },
   },
   ExponentSQLite: {
     close: { type: 'function', functionType: 'async' },
