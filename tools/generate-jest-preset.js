@@ -11,7 +11,7 @@ const path = require('path');
 
 function generateJestPreset() {
   // Load the React Native Jest preset
-  const rnLabPath = path.resolve(__dirname, '../../../react-native-lab');
+  const rnLabPath = path.resolve(__dirname, '../../../exponent/react-native-lab');
   const rnJestPresetPath = path.join(rnLabPath, 'react-native/jest-preset.json');
   const rnJestPreset = require(rnJestPresetPath);
 
