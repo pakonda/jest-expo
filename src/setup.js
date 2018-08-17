@@ -123,7 +123,7 @@ jest.mock('expo-file-system', () => ({
     makeDirectoryAsync: jest.fn(),
     readDirectoryAsync: jest.fn(),
     createDownloadResumable: jest.fn(),
-  }
+  },
 }));
 
 jest.mock('react-native/Libraries/Image/AssetRegistry', () => ({
@@ -144,3 +144,24 @@ jest.mock('react-native/Libraries/Image/AssetRegistry', () => ({
 }));
 
 jest.doMock('react-native/Libraries/BatchedBridge/NativeModules', () => mockNativeModules);
+
+// After NativeModules mock is set up we can mock NativeModulesProxy's functions that should call
+// native side by proxy. We're not really interested in checking whether the underlying method
+// is called, just that the proxy method is called (we believe the adapter is working properly).
+
+const ExpoReactNativeAdapter = require('expo-react-native-adapter'); // eslint-disable-line import/order
+
+const NativeModulesProxy = ExpoReactNativeAdapter.NativeModulesProxy;
+
+for (let moduleName of Object.keys(NativeModulesProxy)) {
+  for (let propName of Object.keys(NativeModulesProxy[moduleName])) {
+    if (NativeModulesProxy[moduleName][propName] instanceof Function) {
+      NativeModulesProxy[moduleName][propName] = jest.fn();
+    }
+  }
+}
+
+jest.doMock('expo-react-native-adapter', () => ({
+  ...ExpoReactNativeAdapter,
+  NativeModulesProxy,
+}));
