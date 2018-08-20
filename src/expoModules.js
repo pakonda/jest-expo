@@ -67,6 +67,16 @@ module.exports = {
           { key: 3, argumentsCount: 2, name: 'createCameraTextureAsync' },
           { key: 4, argumentsCount: 2, name: 'takeSnapshotAsync' },
         ],
+        ExponentCameraManager: [
+          { key: 0, argumentsCount: 2, name: 'record' },
+          { key: 1, argumentsCount: 2, name: 'takePicture' },
+          { key: 2, argumentsCount: 2, name: 'getAvailablePictureSizes' },
+          { key: 3, argumentsCount: 1, name: 'pausePreview' },
+          { key: 4, argumentsCount: 2, name: 'readBarCodeFromURL' },
+          { key: 5, argumentsCount: 1, name: 'resumePreview' },
+          { key: 6, argumentsCount: 1, name: 'stopRecording' },
+        ],
+        ExponentGLViewManager: [],
         ExponentPedometer: [
           { key: 0, argumentsCount: 2, name: 'getStepCountAsync' },
           { key: 1, argumentsCount: 0, name: 'isAvailableAsync' },
@@ -104,16 +114,6 @@ module.exports = {
           { key: 9, argumentsCount: 2, name: 'createAlbumAsync' },
         ],
         ExpoFaceDetector: [{ key: 0, argumentsCount: 1, name: 'detectFaces' }],
-        ExponentGLViewManager: [],
-        ExponentCameraManager: [
-          { key: 0, argumentsCount: 2, name: 'record' },
-          { key: 1, argumentsCount: 2, name: 'takePicture' },
-          { key: 2, argumentsCount: 2, name: 'getAvailablePictureSizes' },
-          { key: 3, argumentsCount: 1, name: 'pausePreview' },
-          { key: 4, argumentsCount: 2, name: 'readBarCodeFromURL' },
-          { key: 5, argumentsCount: 1, name: 'resumePreview' },
-          { key: 6, argumentsCount: 1, name: 'stopRecording' },
-        ],
         ExponentMagnetometer: [{ key: 0, argumentsCount: 1, name: 'setUpdateInterval' }],
         ExponentMagnetometerUncalibrated: [
           { key: 0, argumentsCount: 1, name: 'setUpdateInterval' },
@@ -183,7 +183,7 @@ module.exports = {
           platform: { type: 'object' },
           removeListeners: { type: 'function' },
           sessionId: { type: 'string' },
-          statusBarHeight: { type: 'number', mock: 20 },
+          statusBarHeight: { type: 'number', mock: 44 },
           systemFonts: { type: 'array' },
         },
         ExponentDeviceMotion: {
