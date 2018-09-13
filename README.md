@@ -1,5 +1,11 @@
 # jest-expo
 
+## The jest-expo repository has moved to https://github.com/expo/expo/tree/master/packages/jest-expo.
+
+This repository has been archived and will be removed one day.
+
+---
+
 A [Jest](https://facebook.github.io/jest/) preset to painlessly test your Expo apps.
 
 If you have problems with the code in this repository, please file issues & bug reports
